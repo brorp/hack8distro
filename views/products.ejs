@@ -49,6 +49,14 @@
     </nav>
     <section class="mb-5">
             <h2 class="welcome d-flex justify-content-center">Welcome Back <%= sessionData.username %> !</h2>
+            <div class="about" id="about">
+                <h1>About:</h1>
+                <p><img src = "<%= sessionData.displayPicture %>" height="50px" width="50px"></p>
+                <p>Alamat <br>
+                <%= sessionData.address %></p>
+                <p>Hubungi<br>
+                (+62) <%= sessionData.phone %></p>
+              </div>
             <div class="btn-group d-flex justify-content-center mt-5" role="group" aria-label="Basic mixed styles example">
               <a href="/products/<%= sessionData.id %>/add" role="button" class="btn btn-danger">Add Product</a>
               <a href="/profiles/<%= sessionData.id %>/edit" role="button" class="btn btn-success">Edit Profile</a>
