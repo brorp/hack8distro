@@ -190,3 +190,13 @@ body {
   color: #f1c21b;
   text-shadow: 2px 2px white;
 }
+
+.welcome {
+  margin-top: 150px;
+  font-family: "Montez", cursive;
+  letter-spacing: 1px;
+  font-size: 75px;
+  font-weight: bolder;
+  color: #f1c21b;
+  text-shadow: 2px 2px white;
+}
