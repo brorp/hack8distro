@@ -1,9 +1,10 @@
-function isLoginMiddleware(req, res, next){
-    if(req.session.isLogin){
-        res.redirect('/products')
-    } else {
-        res.redirect('/login')
-    }
+function isLoginMiddleware(req, res, next) {
+  if (req.session.sessionData) {
+    res.locals.sessionData = req.session.sessionData
+    next();
+  } else {
+    res.redirect("/login");
+  }
 }
 
-module.exports = isLoginMiddleware
+module.exports = isLoginMiddleware;
