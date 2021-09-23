@@ -70,8 +70,11 @@ class Controller {
 
   static postRegister(req, res) {
     let { username, password, email, shopName, displayPicture, address, phone, lat, lng } = req.body;
-    User.create({ username, password, email })
-    Profile.create({shopName, displayPicture, address, phone, lat, lng})
+    User.create({email, password, username})
+    .then((data) => {
+      let UserId = data.id
+      return Profile.create({shopName, displayPicture, address, phone, UserId, lat, lng})
+    })
     .then(() => {
       let successRegister = "Registrasi Berhasil, silahkan Log In"
       res.render("login", {successRegister} )
