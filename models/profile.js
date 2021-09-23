@@ -9,13 +9,43 @@ module.exports = (sequelize, DataTypes) => {
   }
   Profile.init(
     {
-      shopName: DataTypes.STRING,
-      displayPicture: DataTypes.STRING,
-      address: DataTypes.STRING,
-      phone: DataTypes.BIGINT,
+      shopName: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Shop Name Harus Diisi!"
+        }}
+      },
+      displayPicture: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Display Picture Harus Diisi!"
+        }}
+      },
+      address: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Address Harus Diisi!"
+        }}
+      },
+      phone: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Nomer Handhone Harus Diisi!"
+        }}
+      },
       UserId: DataTypes.INTEGER,
-      lat: DataTypes.STRING,
-      lng: DataTypes.STRING 
+      lat: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Latitude Harus Diisi!"
+        }}
+      },
+      lng: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: {
+          msg: "Longitude Harus Diisi!"
+        }}
+      } 
     },
     {
       sequelize,
