@@ -3,19 +3,20 @@ const route = express.Router();
 const Controller = require("../controllers/controller");
 const routeProfile = require("./profile")
 const routeProducts = require("./product")
-route.use("/products", routeProducts);
-route.use("/profiles", routeProfile)
+const isLoginMiddleware = require("../middlewares/isLoginMiddleware");
 
-route.get("/", Controller.home); // landing page
+
 route.get("/login", Controller.getLoginPage); //
 route.post("/login", Controller.postLoginPage); //
-route.get("/logout", Controller.postLoginPage);
+route.get("/logout", Controller.getLogOut);
 
-// ADD USER FORM
 route.get("/add-user", Controller.getRegister); // add user (form)
 route.post("/add-user", Controller.postRegister); // add user (form)
 
-// PRODUCT PAGE
+route.use(isLoginMiddleware);
 
+route.get("/", Controller.home); // landing page
+route.use("/products", routeProducts);
+route.use("/profiles", routeProfile)
 
 module.exports = route;

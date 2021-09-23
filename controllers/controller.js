@@ -36,6 +36,7 @@ class Controller {
             .then((profile) => {
               req.session.sessionData = {
                 isLogin: true,
+                id: data.id,
                 shopName: profile.shopName,
                 username: data.username,
                 email: data.email,
@@ -55,6 +56,11 @@ class Controller {
         res.send(err)
       });
   }
+
+    static getLogOut(req, res){
+      req.session.destroy()
+      res.redirect('/')
+    }
 
   // ADD USER
 
