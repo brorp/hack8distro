@@ -13,7 +13,24 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category, { foreignKey: 'CategoryId' })
       Product.belongsTo(models.User, { foreignKey: 'UserId' })
     }
+    //instance method
+    isPremium(){
+      if(this.price > 1000000){
+        return `(PREMIUM) ${this.productName}`
+      } else {
+        return this.productName
+      }
+    }
+    static inputName(nama){
+      let newNama = nama.split(" ");
+      newNama = newNama.map(el => {
+        return el[0].toUpperCase() + el.slice(1)
+      })
+      newNama = newNama.join(" ")
+      return newNama
+    }
   };
+
   Product.init({
     productName: {
       type: DataTypes.STRING,

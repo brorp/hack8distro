@@ -108,7 +108,8 @@ class Controller {
   static productAddForm(req, res) {
     Category.findAll()
       .then((data) => {
-        res.render("productAddForm", { data: data });
+        let newNama = Product.inputName
+        res.render("productAddForm", { data, newNama });
       })
       .catch((error) => {
         res.send(error);

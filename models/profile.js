@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       Profile.belongsTo(models.User, { foreignKey: "UserId" });
     }
   }
+
+    
   Profile.init(
     {
       shopName: {
