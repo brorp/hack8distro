@@ -43,6 +43,8 @@ class Controller {
                 displayPicture: profile.displayPicture,
                 address: profile.address,
                 phone: profile.phone,
+                lat: profile.lat,
+                lng: profile.lng,
               }
               // console.log("masuk sini");
               res.redirect(`/products/${data.id}`)
@@ -80,7 +82,10 @@ class Controller {
       res.render("login", {successRegister} )
     })
     .catch((err) => {
-      res.send(err)
+      let dataErr = err.errors.map( el => {
+        return `<p>${el.message}</p>`
+      })
+      res.send(dataErr.join(" "))
     })
   }
 
@@ -126,7 +131,10 @@ class Controller {
         res.redirect(`/products/${UserId}`);
       })
       .catch((error) => {
-        res.send(error);
+        let dataErr = error.errors.map( el => {
+          return `<p>${el.message}</p>`
+        })
+        res.send(dataErr.join(" "))
       });
   }
 
@@ -167,8 +175,10 @@ class Controller {
         res.redirect(`/products/${UserId}`);
       })
       .catch((error) => {
-        console.log(error)
-        res.send(error);
+        let dataErr = error.errors.map( el => {
+          return `<p>${el.message}</p>`
+        })
+        res.send(dataErr.join(" "))
       });
   }
 
@@ -189,17 +199,21 @@ class Controller {
 
   static profileEditPost(req, res) {
     let UserId = req.params.UserId
-    let { fullName, displayPicture, address, phone } = req.body;
+    let { shopName, displayPicture, address, phone, lat, lng } = req.body;
     Profile.update(
-      { fullName, displayPicture, address, phone, UserId },
-      {
-        where: {
-          UserId: req.params.id,
-        },
+      { shopName, displayPicture, address, phone, lat, lng },{
+        where: {id: UserId}
       }
     )
-      .then(() => res.redirect("/profiles/:UserId"))
-      .catch((err) => res.send(err));
+      .then(() => {
+        res.redirect(`/products/${UserId}`)
+      })
+      .catch((err) => {
+        let dataErr = err.errors.map( el => {
+          return `<p>${el.message}</p>`
+        })
+        res.send(dataErr.join(" "))
+      });
   }
 }
 

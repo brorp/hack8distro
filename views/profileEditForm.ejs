@@ -15,8 +15,8 @@
   </head>
   <body>
     <div class="login container">
-      <h1 class="mb-5">Register</h1>
-            <form action="/<%= sessionData.id %>/edit" method="post">
+      <h1 class="mb-5">Edit Profile</h1>
+            <form action="/profiles/<%= sessionData.id %>/edit" method="post">
                     <div class="mb-3">
                       <label for="shopName" class="form-label">Shop Name</label>
                       <input name="shopName" type="shopName" class="form-control" id="shopName" value="<%= sessionData.shopName %>">
