@@ -16,32 +16,32 @@
   <body>
     <div class="login container">
       <h1 class="mb-5">Register</h1>
-            <form action="/<%= session.data.id %>/edit" method="post">
+            <form action="/<%= sessionData.id %>/edit" method="post">
                     <div class="mb-3">
                       <label for="shopName" class="form-label">Shop Name</label>
-                      <input name="shopName" type="shopName" class="form-control" id="shopName" value="<%= session.data.shopName %>">
+                      <input name="shopName" type="shopName" class="form-control" id="shopName" value="<%= sessionData.shopName %>">
                     </div>
                     <div class="mb-3">
                       <label for="displayPicture" class="form-label">Display Picture (URL)</label>
-                      <input name="displayPicture" type="displayPicture" class="form-control" id="displayPicture" value="<%= session.data.displayPicture %>">
+                      <input name="displayPicture" type="displayPicture" class="form-control" id="displayPicture" value="<%= sessionData.displayPicture %>">
                     </div>
                     <div class="mb-3">
                       <label for="address" class="form-label">Address</label>
-                      <input name="address" type="address" class="form-control" id="address" value="<%= session.data.address %>">
+                      <input name="address" type="address" class="form-control" id="address" value="<%= sessionData.address %>">
                     </div>
                     <div class="mb-3">
                       <label for="phone" class="form-label">Phone</label>
-                      <input name="phone" type="phone" class="form-control" id="phone" value="<%= session.data.phone %>">
+                      <input name="phone" type="phone" class="form-control" id="phone" value="<%= sessionData.phone %>">
                     </div>
                     <label for="lat" class="form-label">Copy and Paste LAT and LNG</label>
                     <div id="map" style="margin-top: 20px; height: 500px; width: 100%;"></div><br>
                     <div class="mb-3">
                       <label for="lat" class="form-label">LATITUDE</label>
-                      <input name="lat" type="lat" class="form-control" id="lat" value="<%= session.data.lat %>">
+                      <input name="lat" type="lat" class="form-control" id="lat" value="<%= sessionData.lat %>">
                     </div>
                     <div class="mb-3">
                       <label for="lng" class="form-label">LONGITUDE</label>
-                      <input name="lng" type="lng" class="form-control" id="lng" value="<%= session.data.lng %>">
+                      <input name="lng" type="lng" class="form-control" id="lng" value="<%= sessionData.lng %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
             </form>

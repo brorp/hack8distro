@@ -15,38 +15,37 @@
   </head>
   <body>
     <div class="login container">
-      <h1 class="mb-5">Add Product</h1>
-            <form action="/<%= session.data.id %>/edit" method="post">
+      <h1 class="mb-5">Edit Product</h1>
+            <form action="/products/<%= sessionData.id %>/edit/<%= data.dataProduct.id %>" method="post">
                     <div class="mb-3">
                       <label for="productName" class="form-label">Product Name</label>
-                      <input name="productName" type="productName" class="form-control" id="productName" value="<%= data.productName %>">
+                      <input name="productName" type="productName" class="form-control" id="productName" value="<%= data.dataProduct.productName %>">
                     </div>
                     <div class="mb-3">
                       <label for="imageUrl" class="form-label">Photos Product (URL)</label>
-                      <input name="imageUrl" type="imageUrl" class="form-control" id="imageUrl" value="<%= data.imageUrl %>">
+                      <input name="imageUrl" type="imageUrl" class="form-control" id="imageUrl" value="<%= data.dataProduct.imageUrl %>">
                     </div>
                     <div class="mb-3">
                       <label for="description" class="form-label">Description</label>
-                      <textarea name="description" type="description" class="form-control" id="description" value="" placeholder="e.g Ukuran L, bahan...">
-                        <%= data.description %>
-                    </textarea>
+                      <textarea name="description" type="description" class="form-control" id="description" value="" placeholder="e.g Ukuran L, bahan..."><%= data.dataProduct.description %></textarea>
                     </div>
                     <div class="mb-3">
                       <label for="price" class="form-label">Price</label>
-                      <input name="price" type="number" class="form-control" id="price" value="<%= data.price %>">
+                      <input name="price" type="number" class="form-control" id="price" value="<%= data.dataProduct.price %>">
                     </div>
                     <div class="mb-3">
                         <label for="stock" class="form-label">Stock</label>
-                        <input name="stock" type="number" class="form-control" id="stock" value="<%= data.stock %>">
+                        <input name="stock" type="number" class="form-control" id="stock" value="<%= data.dataProduct.stock %>">
                     </div>
                     <div class="mb-3">
                         <label for="CategoryId" class="form-label">Category</label>
-                        <option value="" selected>---Choose one---</option>
-                        <% data.forEach((each) => { %>
+                        <select name ="CategoryId" class="form-control">
+                        <% data.dataCategory.forEach((each) => { %>
                         <option value="<%= each.id %>">
                             <%= each.name %>
                         </option>
                         <% }) %>
+                    </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
             </form>

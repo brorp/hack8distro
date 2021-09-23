@@ -16,7 +16,7 @@
   <body>
     <div class="login container">
       <h1 class="mb-5">Add Product</h1>
-            <form action="/<%= session.data.id %>/edit" method="post">
+            <form action="/products/<%= sessionData.id %>/add" method="post">
                     <div class="mb-3">
                       <label for="productName" class="form-label">Product Name</label>
                       <input name="productName" type="productName" class="form-control" id="productName" value="">
@@ -27,8 +27,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="description" class="form-label">Description</label>
-                      <textarea name="description" type="description" class="form-control" id="description" value="" placeholder="e.g Ukuran L, bahan...">
-                    </textarea>
+                      <textarea name="description" type="description" class="form-control" id="description" value="" placeholder="e.g Ukuran L, bahan..."></textarea>
                     </div>
                     <div class="mb-3">
                       <label for="price" class="form-label">Price</label>
@@ -40,12 +39,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="CategoryId" class="form-label">Category</label>
+                        <select name ="CategoryId" class="form-control">
                         <option value="" selected>---Choose one---</option>
                         <% data.forEach((each) => { %>
                         <option value="<%= each.id %>">
                             <%= each.name %>
                         </option>
                         <% }) %>
+                    </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
             </form>

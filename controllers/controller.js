@@ -101,11 +101,9 @@ class Controller {
   // PRODUCT
 
   static productAddForm(req, res) {
-    Product.findAll({
-      include: [{ model: Category }],
-    })
+    Category.findAll()
       .then((data) => {
-        res.render("product-add-form", { data: data });
+        res.render("productAddForm", { data: data });
       })
       .catch((error) => {
         res.send(error);
@@ -113,18 +111,19 @@ class Controller {
   }
 
   static productAddPost(req, res) {
-    let { productName, imageUrl, description, price, stock, CategoryId } =
+    let UserId = req.params.UserId
+    let { productName, imageUrl, description, price, stock, CategoryId} =
       req.body;
     Product.create(
-      { productName, imageUrl, description, price, stock, CategoryId },
+      { productName, imageUrl, description, price, stock, CategoryId, UserId },
       {
         where: {
-          id: req.params.id,
+          id: req.params.UserId,
         },
       }
     )
-      .then((data) => {
-        res.redirect("/products");
+      .then(() => {
+        res.redirect(`/products/${UserId}`);
       })
       .catch((error) => {
         res.send(error);
@@ -132,9 +131,19 @@ class Controller {
   }
 
   static productEditForm(req, res) {
-    Category.findAll()
-      .then((data) => {
-        res.render("product-edit-form", { data: data });
+    let data = {}
+    Product.findOne({
+      where: {
+        id: req.params.id,
+        }
+      })
+      .then((dataProduct) => {
+        data.dataProduct = dataProduct
+        return Category.findAll()
+      })
+      .then((dataCategory) => {
+        data.dataCategory = dataCategory
+        res.render("productEditForm", { data });
       })
       .catch((error) => {
         res.send(error);
@@ -142,20 +151,23 @@ class Controller {
   }
 
   static productEditPost(req, res) {
+    let UserId = req.params.UserId
     let { productName, imageUrl, description, price, stock, CategoryId } =
       req.body;
     Product.update(
       { productName, imageUrl, description, price, stock, CategoryId },
       {
         where: {
-          id: req.params.id,
-        },
+          id: req.params.id
+        }
       }
     )
       .then((data) => {
-        res.redirect("/products");
+        console.log(data)
+        res.redirect(`/products/${UserId}`);
       })
       .catch((error) => {
+        console.log(error)
         res.send(error);
       });
   }
@@ -165,40 +177,21 @@ class Controller {
       where: {
         id: req.params.id,
       },
-    });
-  }
-
-  static minStock(req, res) {
-    Product.decrement("stock", {
-      where: {
-        id: req.params.id,
-        stock: {
-          [Op.gt]: 0,
-        },
-      },
     })
-      .then(() => res.redirect("/products"))
-      .catch((err) => res.send(err));
+    .then(() => res.redirect(`/products/${req.params.UserId}`))
+    .catch((err) => res.send(err))
   }
 
   // PROFILES
-
-  static profileUserId(req, res) {
-    Profile.findByPk({
-      where: {
-        UserId: req.params.id,
-      },
-    })
-      .then((data) => res.render("profile-page", { data }))
-      .catch((err) => res.send(err));
+  static profileEditForm(req, res) {
+    res.render('profileEditForm')
   }
 
-  static profileEditForm(req, res) {}
-
   static profileEditPost(req, res) {
+    let UserId = req.params.UserId
     let { fullName, displayPicture, address, phone } = req.body;
     Profile.update(
-      { fullName, displayPicture, address, phone },
+      { fullName, displayPicture, address, phone, UserId },
       {
         where: {
           UserId: req.params.id,
