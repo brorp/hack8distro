@@ -69,8 +69,9 @@ class Controller {
   }
 
   static postRegister(req, res) {
-    let { username, password, email } = req.body;
+    let { username, password, email, shopName, displayPicture, address, phone, lat, lng } = req.body;
     User.create({ username, password, email })
+    Profile.create({shopName, displayPicture, address, phone, lat, lng})
     .then(() => {
       let successRegister = "Registrasi Berhasil, silahkan Log In"
       res.render("login", {successRegister} )
@@ -115,7 +116,7 @@ class Controller {
       { productName, imageUrl, description, price, stock, CategoryId },
       {
         where: {
-          UserId: req.params.id,
+          id: req.params.id,
         },
       }
     )
@@ -128,11 +129,7 @@ class Controller {
   }
 
   static productEditForm(req, res) {
-    Product.findByPk({
-      where: {
-        UserId: req.params.id,
-      },
-    })
+    Category.findAll()
       .then((data) => {
         res.render("product-edit-form", { data: data });
       })
@@ -148,7 +145,7 @@ class Controller {
       { productName, imageUrl, description, price, stock, CategoryId },
       {
         where: {
-          UserId: req.params.id,
+          id: req.params.id,
         },
       }
     )
