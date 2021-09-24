@@ -95,8 +95,11 @@ class Controller {
         UserId: req.params.id,
       },
     })
-      .then((data) => {
-        res.render("products", {data: data}); // page habis login //
+    .then((data) => {
+        let priceConverter = Product.priceConverter
+        console.log("aaaa");
+        console.log(priceConverter(2000000), '=====');
+        res.render("products", {data}); // page habis login //
       })
       .catch((error) => {
         res.send(error);
@@ -108,8 +111,7 @@ class Controller {
   static productAddForm(req, res) {
     Category.findAll()
       .then((data) => {
-        let newNama = Product.inputName
-        res.render("productAddForm", { data, newNama });
+        res.render("productAddForm", { data });
       })
       .catch((error) => {
         res.send(error);

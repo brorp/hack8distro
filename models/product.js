@@ -21,13 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         return this.productName
       }
     }
-    static inputName(nama){
-      let newNama = nama.split(" ");
-      newNama = newNama.map(el => {
-        return el[0].toUpperCase() + el.slice(1)
-      })
-      newNama = newNama.join(" ")
-      return newNama
+    static priceConverter(harga){
+      const currencyFractionDigits = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+    }).resolvedOptions().maximumFractionDigits;
+    return (harga).toLocaleString('id-ID', { maximumFractionDigits: currencyFractionDigits });
     }
   };
 
