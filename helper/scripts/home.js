@@ -48,21 +48,17 @@ function delay(ms) {
 }
 writeLoop();
 
+
 function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 8,
     center: { lat: -6.951654705590663, lng: 106.81169046448932 },
   });
-  const tourStops = [
-    [{ lat: -6.281326431391206, lng: 106.84495258914144 }, "Boynton Pass"],
-    [{ lat: -6.284992073877069, lng: 106.81169046448932 }, "Airport Mesa"],
-    [
-      { lat: -6.436615370790317, lng: 107.04123993129323 },
-      "Chapel of the Holy Cross",
-    ],
-    [{ lat: -6.951654705590663, lng: 107.62979782542475 }, "Red Rock Crossing"],
-    [{ lat: -6.6464975955159495, lng: 106.84580774157455 }, "Bell Rock"],
-  ];
+  const tourStops = dataMap.map(el => {
+    return [
+      {lat: Number(el[0]), lng: Number(el[1])}, el[2]
+    ]
+  })
 
   const infoWindow = new google.maps.InfoWindow();
 

@@ -6,9 +6,23 @@ const session = require("express-session");
 class Controller {
   // HOME PAGE
   static home(req, res) {
-    Product.findAll()
-      .then((data) => {
-        res.render("home", { data: data });
+    let priceConverter = Product.convertToRupiah
+    console.log(priceConverter(9000));
+    let val = req.query.search
+    let data = {}
+    if(val){
+      data.where = {
+        productName: {[Op.iLike]: `%${val}%`}
+      }
+    }
+    Product.findAll(data)
+      .then((dataProduct) => {
+        data.product = dataProduct
+        return Profile.findAll()
+      })
+      .then((dataProfile) => {
+        data.profile = dataProfile
+        res.render("home", { data, priceConverter });
       })
       .catch((error) => {
         res.send(error);
@@ -96,9 +110,7 @@ class Controller {
       },
     })
     .then((data) => {
-        let priceConverter = Product.priceConverter
-        console.log("aaaa");
-        console.log(priceConverter(2000000), '=====');
+       
         res.render("products", {data}); // page habis login //
       })
       .catch((error) => {

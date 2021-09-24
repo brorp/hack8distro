@@ -14,19 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.User, { foreignKey: 'UserId' })
     }
     //instance method
+    static convertToRupiah(angka){
+      var rupiah = '';		
+      var angkarev = angka.toString().split('').reverse().join('');
+      for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+      return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
+    }
     isPremium(){
       if(this.price > 1000000){
         return `(PREMIUM) ${this.productName}`
       } else {
         return this.productName
       }
-    }
-    static priceConverter(harga){
-      const currencyFractionDigits = new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-    }).resolvedOptions().maximumFractionDigits;
-    return (harga).toLocaleString('id-ID', { maximumFractionDigits: currencyFractionDigits });
     }
   };
 
